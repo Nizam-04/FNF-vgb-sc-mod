@@ -81,6 +81,29 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ // name, icon name, description, link, BG color
+			['Very Groovy Battle Mod'],
+			[
+				'Nizam Bhagaskara',
+				'icon-face',
+				'Main programmer, Additional artist (sometimes)',
+				'https://github.com/Nizam-04',
+				'FFD700'
+			],
+			[
+				'Senopati',
+				'icon-face',
+				'Main artist/animator',
+				'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+				'A020F0'
+			],
+			[
+				'Max',
+				'icon-face',
+				'The useless one',
+				'',
+				'D1C286'
+			],
+			[''],
 			['Psych Engine Team'],
 			[
 				'Shadow Mario', 

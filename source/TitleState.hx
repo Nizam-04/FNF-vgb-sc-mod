@@ -72,7 +72,7 @@ class TitleState extends MusicBeatState
 
 	#if TITLE_SCREEN_EASTER_EGG
 	var easterEggKeys:Array<String> = [
-		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU'
+		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU', 'AWESOME'
 	];
 	var allowedKeys:String = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	var easterEggKeysBuffer:String = '';
@@ -157,9 +157,6 @@ class TitleState extends MusicBeatState
 
 		Highscore.load();
 
-		// IGNORE THIS!!!
-		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
-
 		#if TITLE_SCREEN_EASTER_EGG
 		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
 		switch(FlxG.save.data.psychDevsEasterEgg.toUpperCase())
@@ -174,6 +171,9 @@ class TitleState extends MusicBeatState
 				titleJSON.gfx += 160;
 				titleJSON.gfy -= 10;
 			case 'BBPANZU':
+				titleJSON.gfx += 45;
+				titleJSON.gfy += 100;
+			case 'AWESOME':
 				titleJSON.gfx += 45;
 				titleJSON.gfy += 100;
 		}
@@ -279,7 +279,9 @@ class TitleState extends MusicBeatState
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
 		logoBl.screenCenter();
-		// logoBl.color = FlxColor.BLACK;
+		if(FlxG.keys.justPressed.L) {
+			logoBl.color = FlxColor.BLACK;
+		}
 
 		swagShader = new ColorSwap();
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
@@ -303,6 +305,10 @@ class TitleState extends MusicBeatState
 				gfDance.animation.addByPrefix('danceLeft', 'Shub Title Bump', 24, false);
 				gfDance.animation.addByPrefix('danceRight', 'Shub Title Bump', 24, false);
 			case 'BBPANZU':
+				gfDance.frames = Paths.getSparrowAtlas('BBBump');
+				gfDance.animation.addByIndices('danceLeft', 'BB Title Bump', [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], "", 24, false);
+				gfDance.animation.addByIndices('danceRight', 'BB Title Bump', [27, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "", 24, false);
+			case 'AWESOME':
 				gfDance.frames = Paths.getSparrowAtlas('BBBump');
 				gfDance.animation.addByIndices('danceLeft', 'BB Title Bump', [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], "", 24, false);
 				gfDance.animation.addByIndices('danceRight', 'BB Title Bump', [27, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "", 24, false);
@@ -433,6 +439,8 @@ class TitleState extends MusicBeatState
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
+
+		if(FlxG.keys.justPressed.L)
 
 		#if mobile
 		for (touch in FlxG.touches.list)
@@ -715,6 +723,8 @@ class TitleState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('JingleShadow'));
 					case 'BBPANZU':
 						sound = FlxG.sound.play(Paths.sound('JingleBB'));
+					case 'AWESOME':
+						sound = FlxG.sound.play(Paths.music('freakyMenu'));
 
 					default: //Go back to normal ugly ass boring GF
 						remove(ngSpr);
